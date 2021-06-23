@@ -13,19 +13,21 @@ class HomePage extends StatefulWidget {
 }
 
 Future<Album> fetchAlbum() async {
-  final response = await http
-      .get(Uri.parse('http://demoapi.fractalite.com/api/persons?criteria='));
+  final response = await http.get(
+      Uri.parse('http://demoapi.fractalite.com/api/persons?criteria=ayoub'),
+      headers: {});
 
   if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    print('200');
-    print(Album.fromJson(jsonDecode(response.body)));
-    return Album.fromJson(jsonDecode(response.body));
+    // If the server did return a 2indexindex OK response,
+    // then parse the json['content'][index].
+    print('2indexindex');
+    print(jsonDecode(response.body));
+    //print(Album.fromjson['content'][index](json['content'][index]Decode(response.body)));
+    return Album.fromjson(jsonDecode(response.body),0);
   } else {
-    // If the server did not return a 200 OK response,
+    // If the server did not return a 2indexindex OK response,
     // then throw an exception.
-    print('500');
+    print('5indexindex');
     throw Exception('Failed to load album');
   }
 }
@@ -143,62 +145,62 @@ class Album {
     required this.lastbooking,
   });
 
-  factory Album.fromJson(Map<dynamic, dynamic> json) {
+  factory Album.fromjson(Map<dynamic, dynamic> json,int index) {
     return Album(
-      id: json['id'],
-      createdBy: json['createdby'],
-      creationDate: json['creationDate'],
-      lastModifiedBy: json['lastModifiedBy'],
-      lastModifiedByDate: json['lastModifiedByDate'],
-      name: json['name'],
-      website: json['website'],
-      preferedMedia: json['preferedMedia'],
-      boId: json['boId'],
-      personType: json['personType'],
-      clientSince: json['clientSince'],
-      lastpurchase: json['lastpurchase'],
-      blacklisted: json['blacklisted'],
-      language: json['language'],
-      country: json['country'],
-      activityType: json['activityType'],
-      stopMail: json['stopMail'],
-      stopEmail: json['stopEmail'],
-      stopSMS: json['stopSMS'],
-      stopTel: json['stopTel'],
-      classification: json['classification'],
-      description: json['description'],
-      documents: json['documents'],
-      emails: json['emails'],
-      mainEmail: json['mainEmail'],
-      phones: json['phones'],
-      mainphone: json['mainphone'],
-      adresses: json['adresses'],
-      mainAddresse: json['mainAdresse'],
-      account: json['account'],
-      segments: json['segments'],
-      contents: json['contents'],
-      photos: json['photos'],
-      tags: json['tags'],
-      audience: json['audience'],
-      timeToCall: json['timeToCall'],
-      valid: json['valid'],
-      checked: json['checked'],
-      comment: json['comment'],
-      logo: json['logo'],
-      themeCode: json['themeCode'],
-      socialReason: json['SocialReason'],
-      created: json['created'],
-      capital: json['capital'],
-      capitalcurr: json['capitalcurr'],
-      currency: json['currency'],
-      longitude: json['longitude'],
-      latitude: json['latitude'],
-      timeZone: json['Time'],
-      ratings: json['ratings'],
-      customerRating: json['customerRating'],
-      legalForm: json['legalForm'],
-      ice: json['ice'],
-      lastbooking: json['lastbooking'],
+      id: json['content'][index]['id'],
+      createdBy: json['content'][index]['createdby'],
+      creationDate: json['content'][index]['creationDate'],
+      lastModifiedBy: json['content'][index]['lastModifiedBy'],
+      lastModifiedByDate: json['content'][index]['lastModifiedByDate'],
+      name: json['content'][index]['name'],
+      website: json['content'][index]['website'],
+      preferedMedia: json['content'][index]['preferedMedia'],
+      boId: json['content'][index]['boId'],
+      personType: json['content'][index]['personType'],
+      clientSince: json['content'][index]['clientSince'],
+      lastpurchase: json['content'][index]['lastpurchase'],
+      blacklisted: json['content'][index]['blacklisted'],
+      language: json['content'][index]['language'],
+      country: json['content'][index]['country'],
+      activityType: json['content'][index]['activityType'],
+      stopMail: json['content'][index]['stopMail'],
+      stopEmail: json['content'][index]['stopEmail'],
+      stopSMS: json['content'][index]['stopSMS'],
+      stopTel: json['content'][index]['stopTel'],
+      classification: json['content'][index]['classification'],
+      description: json['content'][index]['description'],
+      documents: json['content'][index]['documents'],
+      emails: json['content'][index]['emails'],
+      mainEmail: json['content'][index]['mainEmail'],
+      phones: json['content'][index]['phones'],
+      mainphone: json['content'][index]['mainphone'],
+      adresses: json['content'][index]['adresses'],
+      mainAddresse: json['content'][index]['mainAdresse'],
+      account: json['content'][index]['account'],
+      segments: json['content'][index]['segments'],
+      contents: json['content'][index]['contents'],
+      photos: json['content'][index]['photos'],
+      tags: json['content'][index]['tags'],
+      audience: json['content'][index]['audience'],
+      timeToCall: json['content'][index]['timeToCall'],
+      valid: json['content'][index]['valid'],
+      checked: json['content'][index]['checked'],
+      comment: json['content'][index]['comment'],
+      logo: json['content'][index]['logo'],
+      themeCode: json['content'][index]['themeCode'],
+      socialReason: json['content'][index]['SocialReason'],
+      created: json['content'][index]['created'],
+      capital: json['content'][index]['capital'],
+      capitalcurr: json['content'][index]['capitalcurr'],
+      currency: json['content'][index]['currency'],
+      longitude: json['content'][index]['longitude'],
+      latitude: json['content'][index]['latitude'],
+      timeZone: json['content'][index]['Time'],
+      ratings: json['content'][index]['ratings'],
+      customerRating: json['content'][index]['customerRating'],
+      legalForm: json['content'][index]['legalForm'],
+      ice: json['content'][index]['ice'],
+      lastbooking: json['content'][index]['lastbooking'],
     );
   }
 }
@@ -223,7 +225,8 @@ class HomePageState extends State<HomePage> {
             future: futureAlbum,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data!.id);
+                print(snapshot.data);
+                return Text("${snapshot.data!.id}");
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
@@ -244,7 +247,7 @@ class HomePageState extends State<HomePage> {
         //               new Card(
         //                 child: new Container(
         //                     child: new Text(data[index]['name']),
-        //                     padding: const EdgeInsets.all(20.0)), //all Container
+        //                     padding: const EdgeInsets.all(2index.index)), //all Container
         //               )
         //             ],
         //           ),
